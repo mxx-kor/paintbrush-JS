@@ -1,12 +1,15 @@
 const canvas = document.getElementById("jsCanvas");
 const ctx = canvas.getContext("2d");
-const colors = document.getElementsByClassName("jsColor");
+const color = document.getElementById("selected_color");
+const colorOptions = Array.from(document.getElementsByClassName("color_option"));
 const range = document.getElementById("jsRange");
 const mode = document.getElementById("jsMode");
+const resetBtn = document.getElementById('reset_btn');
+const eraseBtn = document.getElementById('erase_btn');
 const saveBtn = document.getElementById("jsSave");
 
 const INITIAL_COLOR = "#2c2c2c"
-const CANVAS_SIZE = 500;
+const CANVAS_SIZE = 800;
 canvas.width = CANVAS_SIZE;
 canvas.height = CANVAS_SIZE;
 
@@ -39,12 +42,12 @@ function onMouseMove(event) {
     }
 }
 
-function onMouseUp(event) {
+function onMouseUp() {
     stopPainting();
 }
 
-function handleColorClick(event) {
-    const color = event.target.style.backgroundColor;
+function onColorChange(event) {
+    const color = event.target.value;
     ctx.strokeStyle = color;
     ctx.fillStyle = color;
 }
@@ -54,7 +57,7 @@ function handleRangeChange(event) {
     ctx.lineWidth = size;
 }
 
-function handleModeClick(event) {
+function handleModeClick() {
     if(filling === true) {
         filling = false;
         mode.innerText = "Fill"
@@ -64,7 +67,7 @@ function handleModeClick(event) {
     }
 }
 
-function handleCanvasClick(event) {
+function handleCanvasClick() {
     if (filling) {
         ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     }
@@ -82,6 +85,24 @@ function handleSaveClick(){
     link.click();
 }
 
+function onResetClick() {
+    ctx.fillStyle = "white"
+    ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+}
+
+function onEraseClick() {
+    ctx.strokeStyle = "white";
+    filling = false
+    mode.innerText = "Fill";
+}
+
+function onColorClick(event) {
+    const colorValue = event.target.dataset.color;
+    ctx.strokeStyle = colorValue;
+    ctx.fillStyle = colorValue;
+    color.value = colorValue;
+}
+
 if (canvas) {
     canvas.addEventListener("mousemove", onMouseMove);
     canvas.addEventListener("mousedown", startPainting);
@@ -91,10 +112,10 @@ if (canvas) {
     canvas.addEventListener("contextmenu", handleCM);
 }
 
-Array.from(colors).forEach(color => color.addEventListener("click", handleColorClick));
+colorOptions.forEach(color => color.addEventListener("click", onColorClick))
 
 if(range) {
-    range.addEventListener("input", handleRangeChange);
+    range.addEventListener("change", handleRangeChange);
 }
 
 if(mode) {
@@ -104,3 +125,17 @@ if(mode) {
 if(saveBtn) {
     saveBtn.addEventListener("click", handleSaveClick);
 }
+
+if(resetBtn) {
+    resetBtn.addEventListener('click', onResetClick);
+}
+
+if(eraseBtn) {
+    eraseBtn.addEventListener('click', onEraseClick);
+}
+
+if(color){
+    color.addEventListener('change', onColorChange);
+}
+
+console.dir(color)
