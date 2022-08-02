@@ -10,8 +10,8 @@ body {
 }
 
 .canvas {
-  width: 500px;
-  height: 500px;
+  width: 800px;
+  height: 800px;
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -26,7 +26,7 @@ body {
   margin-bottom: 20px;
 }
 
-.controls__btns button {
+.controls__btns button, label {
   all: unset;
   cursor: pointer;
   background-color: white;
@@ -42,6 +42,10 @@ body {
   font-size: 12px;
 }
 
+label {
+  padding: 3.4px 10px;
+}
+
 .controls__btns button:active {
   transform: scale(0.98);
 }
@@ -53,11 +57,49 @@ body {
 .controls__colors .controls__color {
   width: 50px;
   height: 50px;
+  margin-right: 5px;
   border-radius: 25px;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
+.controls__colors .controls__color:active {
+  transform: scale(0.92);
+}
+
 .controls .controls__range {
   margin-bottom: 10px;
+}
+
+.input__btns {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+input#text {
+  all: unset;
+  width: 300px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 500;
+  text-align: center;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+input#file {
+  display: none;
+}
+
+#selected_color {
+  margin-right: 25px;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  border: 2px solid #f6f9fc;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+#selected_color:active {
+  transform: scale(0.92);
 }
